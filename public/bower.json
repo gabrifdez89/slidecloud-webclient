@@ -1,0 +1,21 @@
+{
+  "name": "slide cloud web client",
+  "version": "0.0.0",
+  "homepage": "https://github.com/GabrielFernandezMoral/slidecloud-webclient",
+  "authors": [
+    "Gabri <gabriel.fernandez.moral@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "iron-elements": "PolymerElements/iron-elements#~1.0.3",
+    "paper-elements": "PolymerElements/paper-elements#~1.0.5",
+    "polymer": "Polymer/polymer#^1.0.0"
+  }
+}
