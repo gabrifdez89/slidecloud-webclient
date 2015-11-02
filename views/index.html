@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="img/favicon.ico">
+
+    <title>Slide Cloud</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../app/lib/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../app/lib/bower_components/bootstrap/dist/css/bootstrap-responsive.min.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <script src="../app/lib/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <!-- Bootstrap file style -->
+    <script type="text/javascript" src="../app/lib/bootstrap-filestyle-1.2.1/src/bootstrap-filestyle.min.js"> </script>
+
+    <!-- Custom CSS -->
+    <link href="css/stylesheet.css" rel="stylesheet">
+
+    <!-- AngularJS -->
+    <script src="../app/lib/bower_components/angular/angular.js"></script>
+
+    <!-- App -->
+    <script src="../app/app.js"></script>
+  </head>
+
+  <body>
+    <div>
+
+
+      <!-- Navbar -->
+      <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <a class="navbar-brand" href="#">
+              <img alt="Brand" src="img/logo32.png">
+            </a>
+          </div>
+          <div class="collapse navbar-collapse navbar-right">
+            <button type="button" class="btn btn-default navbar-btn">Log out</button>
+            <p class="navbar-text"><a href="#" class="navbar-link">Gabri</a></p>
+          </div>
+        </div>
+      </nav>
+
+
+      <!-- Files panel -->
+      <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            <span>My files</span>
+          </div>
+          
+          <table class="table">
+            <thead>
+              <tr>
+                <th>File name</th>
+              </tr>
+            </thead>
+
+            <tbody ng-controller="FilesListController as filesList">
+                <tr ng-repeat="file in filesList.files">
+                  <td>{{file.name}}</td>
+                </tr>
+            </tbody>
+          </table>
+
+          <div class="panel-footer">
+            <nav>
+              <ul class="pagination">
+                <li>
+                  <a href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                  </a>
+                </li>
+                <li><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li>
+                  <a href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- Options panel -->
+      <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 pull-right">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <span>Options</span>
+          </div>
+          <div class="panel-body">
+
+            <form ng-controller="uploader">
+              <input type="file" file-input="files" onchange="angular.element(this).scope().filesChanged(this)" multiple class="filestyle"/>
+              <button ng-click="upload()" class="btn btn-default pull-right submitButton">Upload</button>
+              <li ng-repeat="file in files">{{file.name}}</li>
+            </form>
+
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </body>
+</html>
