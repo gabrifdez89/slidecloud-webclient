@@ -1,33 +1,41 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="app">
+<html lang="en" ng-app="app.modules.app">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="img/favicon.ico">
+
+    <meta name="description" content="Slide Cloud Web Client">
+    <meta name="author" content="Gabriel Fernández Moral">
+    <link rel="icon" href="../../../assets/img/favicon.ico">
 
     <title>Slide Cloud</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="../app/lib/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="../app/lib/bower_components/bootstrap/dist/css/bootstrap-responsive.min.css">
+    <link href="../../../assets/libs/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../../assets/libs/bower_components/bootstrap/dist/css/bootstrap-responsive.min.css">
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-    <script src="../app/lib/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../../../assets/libs/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
     <!-- Bootstrap file style -->
-    <script type="text/javascript" src="../app/lib/bootstrap-filestyle-1.2.1/src/bootstrap-filestyle.min.js"> </script>
+    <script type="text/javascript" src="../../../assets/libs/bootstrap-filestyle-1.2.1/src/bootstrap-filestyle.min.js"> </script>
 
     <!-- Custom CSS -->
-    <link href="css/stylesheet.css" rel="stylesheet">
+    <link href="../../../assets/css/stylesheet.css" rel="stylesheet">
 
     <!-- AngularJS -->
-    <script src="../app/lib/bower_components/angular/angular.js"></script>
+    <script src="../../../assets/libs/bower_components/angular/angular.min.js"></script>
 
     <!-- App -->
-    <script src="../app/app.js"></script>
+    <script src="app.js"></script>
+
+    <!-- App modules -->
+    <script src="../filesList/filesList.js"></script>
+    <script src="../filesList/controllers.js"></script>
+    <script src="../filesUploader/filesUploader.js"></script>
+    <script src="../filesUploader/controllers.js"></script>
+    <script src="../filesUploader/directives.js"></script>
+
   </head>
 
   <body>
@@ -39,7 +47,7 @@
         <div class="container-fluid">
           <div class="navbar-header">
             <a class="navbar-brand" href="#">
-              <img alt="Brand" src="img/logo32.png">
+              <img alt="Brand" src="../../../assets/img/logo32.png">
             </a>
           </div>
           <div class="collapse navbar-collapse navbar-right">
@@ -64,8 +72,8 @@
               </tr>
             </thead>
 
-            <tbody ng-controller="FilesListController as filesList">
-                <tr ng-repeat="file in filesList.files">
+            <tbody ng-controller="filesListController">
+                <tr ng-repeat="file in files">
                   <td>{{file.name}}</td>
                 </tr>
             </tbody>
@@ -104,7 +112,7 @@
           </div>
           <div class="panel-body">
 
-            <form ng-controller="uploader">
+            <form ng-controller="filesUploaderController">
               <input type="file" file-input="files" onchange="angular.element(this).scope().filesChanged(this)" multiple class="filestyle"/>
               <button ng-click="upload()" class="btn btn-default pull-right submitButton">Upload</button>
               <li ng-repeat="file in files">{{file.name}}</li>
