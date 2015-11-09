@@ -11,7 +11,7 @@ module.controller('filesUploaderController', ['$scope', '$http', function ($scop
             fd.append('file', file);
             fd.append('data[]', file.name);
         });
-        $http.post(remoteServer + '/users/pepe/files', fd, {
+        $http.post(remoteServer + 'users/pepe/files', fd, {
             transformRequest: angular.identity,
             headers: {'Content-Type': undefined}
         }).success(function (d) {

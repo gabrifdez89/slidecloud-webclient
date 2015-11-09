@@ -74,7 +74,10 @@
 
             <tbody ng-controller="filesListController">
                 <tr ng-repeat="file in files">
-                  <td>{{file.name}}</td>
+                  <td>
+                    {{file.name}}
+                    <span ng-click="delete(file)" class="pull-right glyphicon glyphicon-remove" aria-hidden="true"></span>
+                  </td>
                 </tr>
             </tbody>
           </table>
