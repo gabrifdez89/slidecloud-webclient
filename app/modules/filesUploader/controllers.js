@@ -7,10 +7,9 @@ module.controller('filesUploaderController', ['$scope', '$http', function ($scop
     };
     $scope.upload = function() {
         var fd = new FormData();
-        fd.data = [];
         angular.forEach($scope.files, function(file) {
             fd.append('file', file);
-            fd.append('data', file.name);
+            fd.append('data[]', file.name);
         });
         $http.post(remoteServer + '/users/pepe/files', fd, {
             transformRequest: angular.identity,
