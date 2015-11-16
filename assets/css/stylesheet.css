@@ -12,3 +12,7 @@ a {
 .submitButton {
 	margin-top: 20px;
 }
+
+[ng-click] {
+	cursor: pointer;
+}

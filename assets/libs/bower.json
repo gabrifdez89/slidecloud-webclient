@@ -1,0 +1,24 @@
+{
+  "name": "libs",
+  "homepage": "https://github.com/gabrifdez89/slidecloud-webclient",
+  "authors": [
+    "Gabri <gabriel.fernandez.moral@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-file-upload": "~2.2.0",
+    "angular-resource": "~1.4.7",
+    "angular": "~1.4.7",
+    "bootstrap": "~3.3.5"
+  }
+}
