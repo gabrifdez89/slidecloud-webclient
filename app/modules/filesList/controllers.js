@@ -1,15 +1,17 @@
 var module = angular.module('app.modules.filesList.controllers', []);
 
-module.controller('filesListController', ['$scope', '$http', 'filesListService', 'alertsService', function ($scope, $http, filesListService, alertsService) {
+module.controller('filesListController', ['$scope', '$http', 'filesHandlerService', 'alertsService', function ($scope, $http, filesHandlerService, alertsService) {
 
-    $scope.files = filesListService.query( function(){}, function() {
-        alertsService.insertDangerAlert('Ups... There was some error while loading your files.');
-    });
+    $scope.loadFilesList = function () {
+        $scope.files = filesHandlerService.filesList.query( function(){}, function() {
+            alertsService.insertDangerAlert('Ups... There was some error while loading your files.');
+        });
+    };
 
 	$scope.delete = function(file) {
-        $http.delete(remoteServer + file.url)
+        filesHandlerService.deleteFile(file)
         .success(function (d) {
-            $scope.files = filesListService.query();
+            $scope.files = filesHandlerService.filesList.query();
         })
         .error(function (d) {
             alertsService.insertDangerAlert('Ups... There was some error while deleting your file.');
@@ -26,4 +28,9 @@ module.controller('filesListController', ['$scope', '$http', 'filesListService',
         $('#fileDeletionModal').modal('hide');
     };
 
+    $scope.$on('filesPosted', function () {
+        $scope.loadFilesList();
+    });
+
+    $scope.loadFilesList();
 }]);
