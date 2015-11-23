@@ -8,11 +8,15 @@ module.controller('filesUploaderController', ['$scope', '$rootScope', '$http', '
     $scope.upload = function() {
         if($scope.files !== undefined) {
             var fd = createFormData();
-            filesHandlerService.postFiles(fd).success(function () {
+            filesHandlerService.postFiles(fd).then(function (resonse) {
                 $rootScope.$broadcast('filesPosted');
                 $scope.files = undefined;
-            }).error(function () {
-                alertsService.insertDangerAlert('Ups... There was some error while uploading your file.');
+            }, function (response) {
+                if(response.status === 400) {
+                    alertsService.insertDangerAlert('You already have some file with that name.');
+                } else {
+                    alertsService.insertDangerAlert('Ups... There was some error while uploading your file.');
+                }
             });
         } else {
             alertsService.insertWarningAlert('Remember to select at least one file.');
