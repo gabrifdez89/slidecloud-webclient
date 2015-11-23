@@ -3,6 +3,7 @@ var module = angular.module('app.modules.filesList.controllers', []);
 module.controller('filesListController', ['$scope', '$http', 'filesHandlerService', 'alertsService', function ($scope, $http, filesHandlerService, alertsService) {
 
     $scope.loadFilesList = function () {
+        $scope.remoteServer = remoteServer;
         $scope.files = filesHandlerService.filesList.query( function(){}, function() {
             alertsService.insertDangerAlert('Ups... There was some error while loading your files.');
         });
@@ -27,6 +28,16 @@ module.controller('filesListController', ['$scope', '$http', 'filesHandlerServic
         $scope.delete($scope.fileSelectedToDelete);
         $('#fileDeletionModal').modal('hide');
     };
+
+    $scope.download = function (file) {
+        filesHandlerService.downloadFile(file)
+        .success(function (downloadedFile) {
+            console.log('Successfully loaded data:\n' + downloadedFile);
+        })
+        .error(function (error) {
+            alertsService.insertDangerAlert('Ups... There was some error while downloading your file.');
+        });
+    }
 
     $scope.$on('filesPosted', function () {
         $scope.loadFilesList();

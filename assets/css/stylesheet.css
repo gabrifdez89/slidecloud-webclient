@@ -16,3 +16,17 @@ a {
 [ng-click] {
 	cursor: pointer;
 }
+
+.download-button {
+	padding-right: 15px;
+	font-size: 20px;
+	cursor: pointer;
+}
+
+.delete-button {
+	font-size: 20px;
+}
+
+.download-link {
+	color: black;
+}

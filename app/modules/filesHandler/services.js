@@ -13,6 +13,9 @@ module.factory('filesHandlerService', ['$resource', '$http', function ($resource
 		},
 		deleteFile: function (file) {
 			return $http.delete(remoteServer + file.url);
+		},
+		downloadFile: function (file) {
+			return $http.get(remoteServer + file.url);
 		}
 	};
 }]);
