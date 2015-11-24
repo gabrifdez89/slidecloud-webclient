@@ -42,6 +42,8 @@
     <script src="../alerts/services.js"></script>
     <script src="../filesHandler/filesHandler.js"></script>
     <script src="../filesHandler/services.js"></script>
+    <script src="../filesPagination/filesPagination.js"></script>
+    <script src="../filesPagination/services.js"></script>
 
   </head>
 
@@ -83,7 +85,7 @@
               </thead>
 
               <tbody>
-                  <tr ng-repeat="file in files">
+                  <tr ng-repeat="file in currentPage">
                     <td>
                       {{file.name}}
                       <span ng-click="selectFileToDelete(file)" data-toggle="modal" data-whatever=file class="pull-right glyphicon glyphicon-remove delete-button" aria-hidden="true"></span>
@@ -97,17 +99,15 @@
               <nav>
                 <ul class="pagination">
                   <li>
-                    <a href="#" aria-label="Previous">
+                    <a ng-click="goToPrevPage()" aria-label="Previous">
                       <span aria-hidden="true">&laquo;</span>
                     </a>
                   </li>
-                  <li><a href="#">1</a></li>
-                  <li><a href="#">2</a></li>
-                  <li><a href="#">3</a></li>
-                  <li><a href="#">4</a></li>
-                  <li><a href="#">5</a></li>
+                  <li ng-repeat="page in pages" class="{{$index === currentPageNumber ? 'active' : ''}}">
+                    <a ng-click="goToPage($index)">{{$index + 1}}</a>
+                  </li>
                   <li>
-                    <a href="#" aria-label="Next">
+                    <a ng-click="goToNextPage()" aria-label="Next">
                       <span aria-hidden="true">&raquo;</span>
                     </a>
                   </li>

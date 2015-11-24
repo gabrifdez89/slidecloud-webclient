@@ -1,18 +1,52 @@
 var module = angular.module('app.modules.filesList.controllers', []);
 
-module.controller('filesListController', ['$scope', '$http', 'filesHandlerService', 'alertsService', function ($scope, $http, filesHandlerService, alertsService) {
+module.controller('filesListController', [
+    '$scope',
+    '$http',
+    'filesHandlerService',
+    'alertsService',
+    'filesPaginationService',
+    function ($scope, $http, filesHandlerService, alertsService, filesPaginationService) {
 
     $scope.loadFilesList = function () {
         $scope.remoteServer = remoteServer;
-        $scope.files = filesHandlerService.filesList.query( function(){}, function() {
+        $scope.files = filesHandlerService.filesList.query( function(){
+            $scope.pages = filesPaginationService.getPages($scope.files);
+            $scope.numberOfPages = $scope.pages.length;
+            if($scope.currentPageNumber === undefined) {
+                $scope.currentPageNumber = 0;
+            } else {
+                $scope.currentPageNumber = $scope.currentPageNumber < $scope.numberOfPages ? $scope.currentPageNumber : $scope.currentPageNumber - 1;
+            }
+            $scope.currentPage = $scope.pages[$scope.currentPageNumber];
+        }, function() {
             alertsService.insertDangerAlert('Ups... There was some error while loading your files.');
         });
+    };
+
+    $scope.goToPage = function (index) {
+        $scope.currentPageNumber = index;
+        $scope.currentPage = $scope.pages[$scope.currentPageNumber];
+    };
+
+    $scope.goToNextPage = function () {
+        if($scope.currentPageNumber < $scope.numberOfPages - 1) {
+            $scope.currentPageNumber++;
+            $scope.currentPage = $scope.pages[$scope.currentPageNumber];
+        }
+    };
+
+    $scope.goToPrevPage = function () {
+        if($scope.currentPageNumber > 0) {
+            $scope.currentPageNumber--;
+            $scope.currentPage = $scope.pages[$scope.currentPageNumber];
+        }
     };
 
 	$scope.delete = function(file) {
         filesHandlerService.deleteFile(file)
         .success(function (d) {
-            $scope.files = filesHandlerService.filesList.query();
+            $scope.loadFilesList();
         })
         .error(function (d) {
             alertsService.insertDangerAlert('Ups... There was some error while deleting your file.');
