@@ -1,0 +1,23 @@
+{
+  "name": "slidecloud-webclient",
+  "version": "1.0.0",
+  "description": "slide cloud web client",
+  "main": "index.js",
+  "scripts": {
+    "start": "node webserver.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gabrifdez89/slidecloud-webclient.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gabrifdez89/slidecloud-webclient/issues"
+  },
+  "homepage": "https://github.com/gabrifdez89/slidecloud-webclient#readme",
+  "dependencies": {
+    "connect": "^3.4.0",
+    "serve-static": "^1.10.0"
+  }
+}
