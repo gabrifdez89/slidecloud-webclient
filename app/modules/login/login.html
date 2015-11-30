@@ -4,10 +4,10 @@
             <h1 class="text-center">Slide Cloud</h1>
             <div>
                 <img class="img-responsive img-center img-login" src="../../../assets/img/logo256.png" alt="">
-                <form>
-                    <input type="text" class="form-control" placeholder="Email" required autofocus>
-                    <input type="password" class="form-control" placeholder="Password" required>
-                    <button class="btn btn-lg btn-primary btn-block" type="submit">
+                <form ng-controller="loginController">
+                    <input type="text" class="form-control" placeholder="Username" ng-model="username" required autofocus>
+                    <input type="password" class="form-control" placeholder="Password" ng-model="pass" required>
+                    <button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="login()">
                         Sign in
                     </button>
                     <div class="checkbox pull-left">

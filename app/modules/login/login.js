@@ -1,2 +1,4 @@
-angular.module('app.modules.login', []),
-	remoteServer = 'http://localhost:3000/';
+angular.module('app.modules.login', [
+	'app.modules.login.controllers',
+	'app.modules.login.services'
+]);
