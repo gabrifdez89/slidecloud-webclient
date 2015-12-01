@@ -2,26 +2,32 @@ var module = angular.module('app.modules.filesList.controllers', []);
 
 module.controller('filesListController', [
     '$scope',
-    '$http',
+    '$location',
+    'authService',
     'filesHandlerService',
     'alertsService',
     'filesPaginationService',
-    function ($scope, $http, filesHandlerService, alertsService, filesPaginationService) {
+    function ($scope, $location, authService, filesHandlerService, alertsService, filesPaginationService) {
 
     $scope.loadFilesList = function () {
         $scope.remoteServer = remoteServer;
-        $scope.files = filesHandlerService.filesList.query( function(){
-            $scope.pages = filesPaginationService.getPages($scope.files);
-            $scope.numberOfPages = $scope.pages.length;
-            if($scope.currentPageNumber === undefined) {
-                $scope.currentPageNumber = 0;
-            } else {
-                $scope.currentPageNumber = $scope.currentPageNumber < $scope.numberOfPages ? $scope.currentPageNumber : $scope.currentPageNumber - 1;
-            }
-            $scope.currentPage = $scope.pages[$scope.currentPageNumber];
-        }, function() {
-            alertsService.insertDangerAlert('Ups... There was some error while loading your files.');
-        });
+
+        if(authService.isAuthed()) {
+            $scope.files = filesHandlerService.filesList.query( function(){
+                $scope.pages = filesPaginationService.getPages($scope.files);
+                $scope.numberOfPages = $scope.pages.length;
+                if($scope.currentPageNumber === undefined) {
+                    $scope.currentPageNumber = 0;
+                } else {
+                    $scope.currentPageNumber = $scope.currentPageNumber < $scope.numberOfPages ? $scope.currentPageNumber : $scope.currentPageNumber - 1;
+                }
+                $scope.currentPage = $scope.pages[$scope.currentPageNumber];
+            }, function() {
+                alertsService.insertDangerAlert('Ups... There was some error while loading your files.');
+            });
+        } else {
+            $location.path('/login');
+        }
     };
 
     $scope.goToPage = function (index) {

@@ -6,7 +6,8 @@ module.controller('loginController', ['$scope', '$location', 'loginService', 'au
 		loginService.login($scope.username, $scope.pass).then(function (response) {
 			if(response.status === 200) {
 				authService.saveToken(response.data);
-				console.log('isAuthed: ' + authService.isAuthed());
+				var username = authService.parseJwt(response.data).username;
+				authService.saveUsername(username);
 				$location.path('/dashboard');
 			} else {
 				$location.path('/login');

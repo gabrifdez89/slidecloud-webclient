@@ -9,6 +9,15 @@ module.factory('authService', ['$window', function ($window) {
 		getToken: function (token) {
 			return $window.localStorage['jwtToken'];
 		},
+		removeToken: function () {
+			$window.localStorage.removeItem('jwtToken');
+		},
+		saveUsername: function (username) {
+			$window.localStorage['username'] = username;
+		},
+		getUsername: function (username) {
+			return $window.localStorage['username'];
+		},
 		parseJwt: function (token) {
 			var base64Url = token.split('.')[1];
 			var base64 = base64Url.replace('-', '+').replace('_', '/');
@@ -17,9 +26,10 @@ module.factory('authService', ['$window', function ($window) {
 		isAuthed: function () {
 			var token = this.getToken();
 			if(token) {
-				var params = this.parseJwt(token);
-				//return Math.round(new Date().getTime() / 1000) <= params.exp;
-				return params.username !== undefined;
+				var params = this.parseJwt(token),
+					now = new Date(),
+					expirationDate = new Date(params.exp);
+				return now.getTime() < expirationDate.getTime();
 			} else {
 				return false;
 			}
