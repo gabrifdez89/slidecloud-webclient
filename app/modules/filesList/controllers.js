@@ -50,13 +50,19 @@ module.controller('filesListController', [
     };
 
 	$scope.delete = function(file) {
-        filesHandlerService.deleteFile(file)
-        .success(function (d) {
-            $scope.loadFilesList();
-        })
-        .error(function (d) {
-            alertsService.insertDangerAlert('Ups... There was some error while deleting your file.');
-        });
+        if(authService.isAuthed()) {
+            filesHandlerService.deleteFile(file)
+            .success(function (d) {
+                $scope.loadFilesList();
+            })
+            .error(function (d) {
+                alertsService.insertDangerAlert('Ups... There was some error while deleting your file.');
+            });
+            $('#fileDeletionModal').modal('hide');
+        } else {
+            $('#fileDeletionModal').modal('delete');
+            $location.path('/login');
+        }
     };
 
     $scope.selectFileToDelete = function(file) {
@@ -66,7 +72,6 @@ module.controller('filesListController', [
 
     $scope.deleteFile = function () {
         $scope.delete($scope.fileSelectedToDelete);
-        $('#fileDeletionModal').modal('hide');
     };
 
     $scope.download = function (file) {

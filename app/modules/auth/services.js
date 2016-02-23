@@ -15,7 +15,7 @@ module.factory('authService', ['$window', function ($window) {
 		saveUsername: function (username) {
 			$window.localStorage['username'] = username;
 		},
-		getUsername: function (username) {
+		getUsername: function () {
 			return $window.localStorage['username'];
 		},
 		parseJwt: function (token) {
