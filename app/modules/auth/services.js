@@ -26,10 +26,7 @@ module.factory('authService', ['$window', function ($window) {
 		isAuthed: function () {
 			var token = this.getToken();
 			if(token) {
-				var params = this.parseJwt(token),
-					now = new Date(),
-					expirationDate = new Date(params.exp);
-				return now.getTime() < expirationDate.getTime();
+				return true;
 			} else {
 				return false;
 			}

@@ -74,7 +74,7 @@ module.controller('filesListController', [
         $scope.delete($scope.fileSelectedToDelete);
     };
 
-    $scope.download = function (file) {
+    /*$scope.download = function (file) {
         filesHandlerService.downloadFile(file)
         .success(function (downloadedFile) {
             console.log('Successfully loaded data:\n' + downloadedFile);
@@ -82,7 +82,7 @@ module.controller('filesListController', [
         .error(function (error) {
             alertsService.insertDangerAlert('Ups... There was some error while downloading your file.');
         });
-    }
+    }*/
 
     $scope.$on('filesPosted', function () {
         $scope.loadFilesList();

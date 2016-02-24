@@ -26,13 +26,13 @@ module.factory('filesHandlerService', ['$resource', '$http', 'authService', func
 					'token': authService.getToken()
 				}
 			});
-		},
+		}/*,
 		downloadFile: function (file) {
 			return $http.get(remoteServer + file.url, {
 				headers: {
 					'token': authService.getToken()
 				}
 			});
-		}
+		}*/
 	};
 }]);
