@@ -1,6 +1,8 @@
 var module = angular.module('app.modules.login.services', []);
 
-module.factory('loginService', ['$http', function ($http) {
+module.factory('loginService', ['$http', loginService]);
+
+function loginService ($http) {
 
 	return {
 		login: login
@@ -13,4 +15,4 @@ module.factory('loginService', ['$http', function ($http) {
 		});
 	};
 	
-}]);
+};

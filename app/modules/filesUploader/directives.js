@@ -1,6 +1,8 @@
 var module = angular.module('app.modules.filesUploader.directives', []);
 
-module.directive('fileInput', ['$parse', function ($parse) {
+module.directive('fileInput', ['$parse', fileInput]);
+
+function fileInput ($parse) {
     return {
         restrict: 'A',
         link: link
@@ -13,4 +15,4 @@ module.directive('fileInput', ['$parse', function ($parse) {
             scope.$apply();
         });
     };
-}]);
+};

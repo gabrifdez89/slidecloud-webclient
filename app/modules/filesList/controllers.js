@@ -7,7 +7,10 @@ module.controller('filesListController', [
     'filesHandlerService',
     'alertsService',
     'filesPaginationService',
-    function ($scope, $location, authService, filesHandlerService, alertsService, filesPaginationService) {
+    filesListController
+]);
+
+function filesListController ($scope, $location, authService, filesHandlerService, alertsService, filesPaginationService) {
 
     $scope.loadFilesList = function () {
         $scope.remoteServer = remoteServer;
@@ -49,7 +52,7 @@ module.controller('filesListController', [
         }
     };
 
-	$scope.delete = function(file) {
+    $scope.delete = function(file) {
         if(authService.isAuthed()) {
             filesHandlerService.deleteFile(file)
             .success(function (d) {
@@ -89,4 +92,4 @@ module.controller('filesListController', [
     });
 
     $scope.loadFilesList();
-}]);
+};

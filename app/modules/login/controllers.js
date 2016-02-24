@@ -1,6 +1,8 @@
 var module = angular.module('app.modules.login.controllers', []);
 
-module.controller('loginController', ['$scope', '$location', 'loginService', 'authService', function ($scope, $location, loginService, authService) {
+module.controller('loginController', ['$scope', '$location', 'loginService', 'authService', loginController]);
+
+function loginController ($scope, $location, loginService, authService) {
 
 	$scope.login = function () {
 		loginService.login($scope.username, $scope.pass).then(function (response) {
@@ -14,4 +16,4 @@ module.controller('loginController', ['$scope', '$location', 'loginService', 'au
 			}
 		});
 	}
-}]);
+};

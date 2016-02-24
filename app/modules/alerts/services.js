@@ -1,6 +1,8 @@
 var module = angular.module('app.modules.alerts.services', []);
 
-module.factory('alertsService', [function () {
+module.factory('alertsService', [alertsService]);
+
+function alertsService () {
 
 	return {
 		insertDangerAlert: insertDangerAlert,
@@ -33,4 +35,4 @@ module.factory('alertsService', [function () {
 			});
 		}, 5000);
 	};
-}]);
+};

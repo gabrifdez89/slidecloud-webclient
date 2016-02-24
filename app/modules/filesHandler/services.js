@@ -1,6 +1,8 @@
 var module = angular.module('app.modules.filesHandler.services', ['ngResource']);
 
-module.factory('filesHandlerService', ['$resource', '$http', 'authService', function ($resource, $http, authService) {
+module.factory('filesHandlerService', ['$resource', '$http', 'authService', filesHandlerService]);
+
+function filesHandlerService ($resource, $http, authService) {
 	return {
 		filesList: filesList,
 		postFiles: postFiles,
@@ -45,4 +47,4 @@ module.factory('filesHandlerService', ['$resource', '$http', 'authService', func
 			}
 		});
 	};
-}]);
+};

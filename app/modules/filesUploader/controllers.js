@@ -1,6 +1,8 @@
 var module = angular.module('app.modules.filesUploader.controllers', []);
 
-module.controller('filesUploaderController', ['$scope', '$rootScope', '$http', 'alertsService', 'filesHandlerService', function ($scope, $rootScope, $http, alertsService, filesHandlerService) {
+module.controller('filesUploaderController', ['$scope', '$rootScope', '$http', 'alertsService', 'filesHandlerService', filesUploaderController]);
+
+function filesUploaderController ($scope, $rootScope, $http, alertsService, filesHandlerService) {
     $scope.filesChanged = function (elm) {
         $scope.files = elm.files;
         $scope.$apply();
@@ -31,4 +33,4 @@ module.controller('filesUploaderController', ['$scope', '$rootScope', '$http', '
         });
         return fd;
     };
-}]);
+};

@@ -2,7 +2,9 @@ var module = angular.module('app.modules.filesPagination.services', []),
 	filesPerPage = 8;
 
 
-module.factory('filesPaginationService', [function () {
+module.factory('filesPaginationService', [filesPaginationService]);
+
+function filesPaginationService () {
 	return {
 		getPages: getPages
 	};
@@ -19,4 +21,4 @@ module.factory('filesPaginationService', [function () {
 
 		return pages;
 	};
-}]);
+};
