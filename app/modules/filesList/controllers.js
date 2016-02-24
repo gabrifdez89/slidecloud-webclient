@@ -13,7 +13,7 @@ module.controller('filesListController', [
         $scope.remoteServer = remoteServer;
 
         if(authService.isAuthed()) {
-            $scope.files = filesHandlerService.filesList.query( function(){
+            $scope.files = filesHandlerService.filesList().query( function(){
                 $scope.pages = filesPaginationService.getPages($scope.files);
                 $scope.numberOfPages = $scope.pages.length;
                 if($scope.currentPageNumber === undefined) {

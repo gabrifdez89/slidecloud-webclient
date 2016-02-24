@@ -4,17 +4,19 @@ var module = angular.module('app.modules.filesPagination.services', []),
 
 module.factory('filesPaginationService', [function () {
 	return {
-		getPages: function (files) {
-			var numberOfPages = Math.ceil(files.length / filesPerPage),
-				pages = [],
-				filesInAPage;
+		getPages: getPages
+	};
 
-			for (var i = 0 ; i< numberOfPages; i++) {
-				filesInAPage = files.slice(i*filesPerPage, i*filesPerPage + filesPerPage);
-				pages.push(filesInAPage);
-			}
+	function getPages (files) {
+		var numberOfPages = Math.ceil(files.length / filesPerPage),
+			pages = [],
+			filesInAPage;
 
-			return pages;
-		} 
+		for (var i = 0 ; i< numberOfPages; i++) {
+			filesInAPage = files.slice(i*filesPerPage, i*filesPerPage + filesPerPage);
+			pages.push(filesInAPage);
+		}
+
+		return pages;
 	};
 }]);
