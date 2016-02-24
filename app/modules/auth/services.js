@@ -9,6 +9,7 @@ function authService ($window) {
 		getToken: getToken,
 		removeToken: removeToken,
 		saveUsername: saveUsername,
+		saveTokenAndUsername: saveTokenAndUsername,
 		getUsername: getUsername,
 		parseJwt: parseJwt,
 		isAuthed: isAuthed
@@ -28,6 +29,12 @@ function authService ($window) {
 
 	function saveUsername (username) {
 		$window.localStorage['username'] = username;
+	};
+
+	function saveTokenAndUsername (token) {
+		saveToken(token);
+		var username = parseJwt(token).username;
+		saveUsername(username);
 	};
 
 	function getUsername () {

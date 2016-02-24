@@ -5,6 +5,7 @@ var module = angular.module('app.modules.filesPagination.services', []),
 module.factory('filesPaginationService', [filesPaginationService]);
 
 function filesPaginationService () {
+	
 	return {
 		getPages: getPages
 	};

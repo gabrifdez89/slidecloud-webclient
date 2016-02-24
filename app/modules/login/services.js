@@ -14,5 +14,4 @@ function loginService ($http) {
 			'pass': pass
 		});
 	};
-	
 };

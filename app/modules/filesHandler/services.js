@@ -40,11 +40,11 @@ function filesHandlerService ($resource, $http, authService) {
 		});
 	};
 
-	function downloadFile (file) {
+	/*function downloadFile (file) {
 		return $http.get(remoteServer + file.url, {
 			headers: {
 				'token': authService.getToken()
 			}
 		});
-	};
+	};*/
 };

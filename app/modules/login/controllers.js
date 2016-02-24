@@ -4,16 +4,18 @@ module.controller('loginController', ['$scope', '$location', 'loginService', 'au
 
 function loginController ($scope, $location, loginService, authService) {
 
-	$scope.login = function () {
-		loginService.login($scope.username, $scope.pass).then(function (response) {
-			if(response.status === 200) {
-				authService.saveToken(response.data);
-				var username = authService.parseJwt(response.data).username;
-				authService.saveUsername(username);
-				$location.path('/dashboard');
-			} else {
-				$location.path('/login');
-			}
-		});
-	}
+	$scope.login = login;
+
+	function login () {
+		loginService.login($scope.username, $scope.pass).then(onLoginResponse);
+	};
+
+	function onLoginResponse (response) {
+		if(response.status === 200) {
+			authService.saveTokenAndUsername(response.data);
+			$location.path('/dashboard');
+		} else {
+			$location.path('/login');
+		}
+	};
 };
