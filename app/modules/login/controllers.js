@@ -6,6 +6,7 @@ function loginController ($scope, $location, loginService, authService) {
 
 	$scope.login = login;
 	$scope.logout = logout;
+	$scope.username = authService.getUsername();
 
 	function login () {
 		loginService.login($scope.username, $scope.pass).then(onLoginResponse);
