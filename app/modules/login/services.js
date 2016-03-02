@@ -5,7 +5,8 @@ module.factory('loginService', ['$http', loginService]);
 function loginService ($http) {
 
 	return {
-		login: login
+		login: login,
+		signin: signin
 	};
 
 	function login (username, pass) {
@@ -13,5 +14,13 @@ function loginService ($http) {
 			'username': username,
 			'pass': pass
 		});
+	};
+
+	function signin (username, pass, email) {
+		return $http.post(remoteServer + 'signin', {
+			'username': username,
+			'pass': pass,
+			'email': email
+		})
 	};
 };

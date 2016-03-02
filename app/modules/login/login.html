@@ -1,22 +1,49 @@
 <div class="container">
     <div class="row">
-        <div class="col-sm-12 col-xs-12 col-md-4 col-lg-4 col-md-offset-4">
+        <div class="col-sm-12 col-xs-12 col-md-4 col-lg-4 col-md-offset-4" ng-controller="loginController">
+
+            <!-- Form -->
             <h1 class="text-center">Slide Cloud</h1>
             <div>
                 <img class="img-responsive img-center img-login" src="../../../assets/img/logo256.png" alt="">
-                <form ng-controller="loginController">
+                <form>
                     <input type="text" class="form-control" placeholder="Username" ng-model="username" required autofocus>
                     <input type="password" class="form-control" placeholder="Password" ng-model="pass" required>
-                    <button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="login()">
-                        Sign in
+                    <input type="email" class="form-control" placeholder="Email" ng-model="email" ng-show="createAccountMode" required>
+                    <button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="proceedMainAction()">
+                        {{mainButtonText}}
                     </button>
                     <div class="checkbox pull-left">
                         <label>
                             <input type="checkbox"> Remember me
                         </label>
                     </div>
+                    <div class="pull-right">
+                        <h5 ng-click="switchLoginCreateAccountView()">{{switchModeButtonText}}</h5>
+                    </div>
                 </form>
             </div>
+            <!-- Form -->
+
+            <!-- Modal -->
+            <div class="modal fade" id="createAccountModal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title">{{modalTitle}}</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>{{modalMessage}}</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Ok</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal -->
+
         </div>
     </div>
 </div>
