@@ -9,10 +9,13 @@
               <img alt="Brand" src="../../../assets/img/logo32.png">
             </a>
           </div>
-          <div class="collapse navbar-collapse navbar-right">
-            <button type="button" class="btn btn-default navbar-btn">Log out</button>
+
+          <!-- Log out -->
+          <div ng-controller="loginController" class="collapse navbar-collapse navbar-right">
+            <button ng-click="logout()" type="button" class="btn btn-default navbar-btn">Log out</button>
             <p class="navbar-text"><a href="#" class="navbar-link">Gabri</a></p>
           </div>
+
         </div>
       </nav>
 

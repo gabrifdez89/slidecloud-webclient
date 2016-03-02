@@ -5,6 +5,7 @@ module.controller('loginController', ['$scope', '$location', 'loginService', 'au
 function loginController ($scope, $location, loginService, authService) {
 
 	$scope.login = login;
+	$scope.logout = logout;
 
 	function login () {
 		loginService.login($scope.username, $scope.pass).then(onLoginResponse);
@@ -17,5 +18,10 @@ function loginController ($scope, $location, loginService, authService) {
 		} else {
 			$location.path('/login');
 		}
+	};
+
+	function logout () {
+		authService.removeTokenAndUsername();
+		$location.path('/login');
 	};
 };

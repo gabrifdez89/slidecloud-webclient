@@ -11,8 +11,10 @@ function authService ($window) {
 		saveUsername: saveUsername,
 		saveTokenAndUsername: saveTokenAndUsername,
 		getUsername: getUsername,
+		removeUsername: removeUsername,
 		parseJwt: parseJwt,
-		isAuthed: isAuthed
+		isAuthed: isAuthed,
+		removeTokenAndUsername: removeTokenAndUsername
 	};
 
 	function saveToken (token) {
@@ -41,6 +43,10 @@ function authService ($window) {
 		return $window.localStorage['username'];
 	};
 
+	function removeUsername () {
+		$window.localStorage.removeItem('username');
+	};
+
 	function parseJwt (token) {
 		var base64Url = token.split('.')[1];
 		var base64 = base64Url.replace('-', '+').replace('_', '/');
@@ -54,5 +60,10 @@ function authService ($window) {
 		} else {
 			return false;
 		}
+	};
+
+	function removeTokenAndUsername () {
+		removeUsername();
+		removeToken();
 	};
 };
