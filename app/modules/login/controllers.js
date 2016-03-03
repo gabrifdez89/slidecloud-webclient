@@ -55,9 +55,17 @@ function loginController ($scope, $location, loginService, authService) {
 		if(response.status === 200) {
 			authService.saveTokenAndUsername(response.data);
 			$location.path('/dashboard');
-		} else if(response.status === 401 && response.data === 'User account is not validated') {
-			var modalTitle = 'Account not validated yet',
-				modalMessage = 'You need to validate your account through the link in the email we sent you to the provided address.';
+		} else if(response.status === 404 && response.data === 'User not found.') {
+			var modalTitle = 'User account not found',
+				modalMessage = 'We have not found any account for that username. Please, make sure you typed your username right.';
+			showModal(modalTitle, modalMessage);
+		} else if (response.status === 401 && response.data === 'Authentication failed. Wrong password.') {
+			var modalTitle = 'Wrong password',
+				modalMessage = 'The password you typed is not valid for that account. Please, make sure you typed your password right.';
+			showModal(modalTitle, modalMessage);
+		} else if(response.status === 401 && response.data === 'User account is not validated.') {
+			var modalTitle = 'User account not validated',
+				modalMessage = 'You need to validate your account before using it. You can do that, by clicking on the link we sent to the email address you provided.';
 			showModal(modalTitle, modalMessage);
 		} else {
 			$location.path('/login');
