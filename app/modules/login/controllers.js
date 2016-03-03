@@ -76,9 +76,12 @@ function loginController ($scope, $location, loginService, authService) {
 	function onCreateAccountResponse (response) {
 		var modalTitle, modalMessage;
 
-		if (response.status === 401) {
+		if (response.status === 401 && response.data === 'Already existing user with that username.') {
 			modalTitle = 'Username already taken';
 			modalMessage = 'There is already an user account with that username. Please, choose a different one and try again.';
+		} else if (response.status === 401 && response.data === 'Already existing user with that email.') {
+			modalTitle = 'Email already assigned to an account';
+			modalMessage = 'The email address you have provided is already assigned to a Slide Cloud Account. Please, provide a different one.';
 		} else if (response.status === 200) {
 			modalTitle = 'Account created successfully!';
 			modalMessage = 'You will receive an email with a link to validate your account. You need to validate it before you login. Enjoy Slidecloud.';
