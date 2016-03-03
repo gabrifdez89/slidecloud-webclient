@@ -6,7 +6,8 @@ function loginService ($http) {
 
 	return {
 		login: login,
-		signin: signin
+		signin: signin,
+		validateAccount: validateAccount
 	};
 
 	function login (username, pass) {
@@ -21,6 +22,13 @@ function loginService ($http) {
 			'username': username,
 			'pass': pass,
 			'email': email
+		})
+	};
+
+	function validateAccount (username, token) {
+		return $http.post(remoteServer + 'validate', {
+			'username': username,
+			'token': token
 		})
 	};
 };

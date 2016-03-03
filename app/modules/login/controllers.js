@@ -9,12 +9,35 @@ function loginController ($scope, $location, loginService, authService) {
 	$scope.createAccount = createAccount;
 	$scope.switchLoginCreateAccountView = switchLoginCreateAccountView;
 	$scope.proceedMainAction = proceedMainAction;
+	$scope.proceedValidateAccount = proceedValidateAccount;
 
 	$scope.loginMode = true;
 	$scope.createAccountMode = false;
 	$scope.switchModeButtonText = 'Create account';
 	$scope.mainButtonText = 'Log in';
 	$scope.username = authService.getUsername();
+	$scope.validationUsername = $location.search().username;
+	$scope.validationToken = $location.search().token;
+
+	if($scope.validationUsername && $scope.validationToken) {
+		$scope.proceedValidateAccount();
+	}
+
+	function proceedValidateAccount () {
+		loginService.validateAccount($scope.validationUsername, $scope.validationToken).then(onValidateAccountResponse);
+	};
+
+	function onValidateAccountResponse (response) {
+		if(response.status !== 200) {
+			var modalTitle = 'Problem validating account',
+				modalMessage = 'We could not validate your account. Please, verify you copied the link just like we sent you in the email.';
+			showModal(modalTitle, modalMessage);
+		} else {
+			var modalTitle = 'Account validated successfully!',
+				modalMessage = 'You can now login with your credentials and start using Slide Cloud.';
+			showModal(modalTitle, modalMessage);
+		}
+	};
 
 	function proceedMainAction () {
 		if($scope.loginMode) {
