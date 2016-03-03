@@ -7,7 +7,8 @@ function loginService ($http) {
 	return {
 		login: login,
 		signin: signin,
-		validateAccount: validateAccount
+		validateAccount: validateAccount,
+		requestValidationEmail: requestValidationEmail
 	};
 
 	function login (username, pass) {
@@ -31,4 +32,11 @@ function loginService ($http) {
 			'token': token
 		})
 	};
+
+	function requestValidationEmail (username, pass) {
+		return $http.post(remoteServer + 'requestvalidationemail', {
+			'username': username,
+			'pass': pass
+		});
+	}
 };

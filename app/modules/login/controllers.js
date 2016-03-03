@@ -10,6 +10,7 @@ function loginController ($scope, $location, loginService, authService) {
 	$scope.switchLoginCreateAccountView = switchLoginCreateAccountView;
 	$scope.proceedMainAction = proceedMainAction;
 	$scope.proceedValidateAccount = proceedValidateAccount;
+	$scope.resendValidationEmail = resendValidationEmail;
 
 	$scope.loginMode = true;
 	$scope.createAccountMode = false;
@@ -18,6 +19,7 @@ function loginController ($scope, $location, loginService, authService) {
 	$scope.username = authService.getUsername();
 	$scope.validationUsername = $location.search().username;
 	$scope.validationToken = $location.search().token;
+	$scope.showResendValidationEmailButton = false;
 
 	if($scope.validationUsername && $scope.validationToken) {
 		$scope.proceedValidateAccount();
@@ -66,7 +68,7 @@ function loginController ($scope, $location, loginService, authService) {
 		} else if(response.status === 401 && response.data === 'User account is not validated.') {
 			var modalTitle = 'User account not validated',
 				modalMessage = 'You need to validate your account before using it. You can do that, by clicking on the link we sent to the email address you provided.';
-			showModal(modalTitle, modalMessage);
+			showModal(modalTitle, modalMessage, true);
 		} else {
 			$location.path('/login');
 		}
@@ -115,9 +117,26 @@ function loginController ($scope, $location, loginService, authService) {
 		}
 	};
 
-	function showModal (title, message) {
+	function showModal (title, message, showResendValidationEmailButton) {
 		$scope.modalTitle = title;
 		$scope.modalMessage = message;
+		$scope.showResendValidationEmailButton = showResendValidationEmailButton || false;
 		$('#createAccountModal').modal('show');
+	};
+
+	function resendValidationEmail () {
+		loginService.requestValidationEmail($scope.username, $scope.pass).then(onRequestValidationEmailResponse, onRequestValidationEmailResponse);
+	};
+
+	function onRequestValidationEmailResponse (response) {
+		if(response.status !== 200) {
+			var modalTitle = 'Error sending validation email',
+				modalMessage = 'There was some error while we tried to send you the validation email. Please, verify the email address you provided is active.';
+			showModal(modalTitle, modalMessage);
+		} else {
+			var modalTitle = 'Validation email resent',
+				modalMessage = 'We have sent you again the validation link to the email address you provided. Please, check your email and click on the link.';
+			showModal(modalTitle, modalMessage);
+		}
 	};
 };
