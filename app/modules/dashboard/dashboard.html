@@ -42,7 +42,7 @@
                     <td>
                       {{file.name}}
                       <span ng-click="selectFileToDelete(file)" data-toggle="modal" data-whatever=file class="pull-right glyphicon glyphicon-remove delete-button" aria-hidden="true"></span>
-                      <a href="{{remoteServer}}{{file.url}}" target="_blank" class="download-link"><span class="pull-right glyphicon glyphicon-download download-button" aria-hidden="true"></span></a>
+                      <a href="{{remoteServer}}{{file.url}}?token={{token}}" target="_blank" class="download-link"><span class="pull-right glyphicon glyphicon-download download-button" aria-hidden="true"></span></a>
                     </td>
                   </tr>
               </tbody>

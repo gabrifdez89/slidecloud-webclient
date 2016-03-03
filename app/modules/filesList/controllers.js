@@ -20,6 +20,7 @@ function filesListController ($scope, $location, authService, filesHandlerServic
     $scope.goToPrevPage = goToPrevPage;
     $scope.selectFileToDelete = selectFileToDelete;
     $scope.deleteFile = deleteFile;
+    $scope.token = authService.getToken();
 
     $scope.$on('filesPosted', $scope.loadFilesList);
     $scope.loadFilesList();
