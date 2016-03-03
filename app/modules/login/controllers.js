@@ -48,13 +48,17 @@ function loginController ($scope, $location, loginService, authService) {
 	};
 
 	function login () {
-		loginService.login($scope.username, $scope.pass).then(onLoginResponse);
+		loginService.login($scope.username, $scope.pass).then(onLoginResponse, onLoginResponse);
 	};
 
 	function onLoginResponse (response) {
 		if(response.status === 200) {
 			authService.saveTokenAndUsername(response.data);
 			$location.path('/dashboard');
+		} else if(response.status === 401 && response.data === 'User account is not validated') {
+			var modalTitle = 'Account not validated yet',
+				modalMessage = 'You need to validate your account through the link in the email we sent you to the provided address.';
+			showModal(modalTitle, modalMessage);
 		} else {
 			$location.path('/login');
 		}
