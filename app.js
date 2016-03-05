@@ -3,7 +3,7 @@ var app = angular.module('app', [
 		'app.modules.login',
 		'ngRoute'
 	]),
-	remoteServer = 'http://localhost:3000/';
+	remoteServer = 'http://slidecloudapi.herokuapp.com/';
 
 app.config(['$routeProvider',
 	function ($routeProvider) {
