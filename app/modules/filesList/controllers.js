@@ -12,14 +12,15 @@ module.controller('filesListController', [
 
 function filesListController ($scope, $location, authService, filesHandlerService, alertsService, filesPaginationService) {
 
-    $scope.remoteServer = remoteServer;
-
     $scope.loadFilesList = loadFilesList;
     $scope.goToPage = goToPage;
     $scope.goToNextPage = goToNextPage;
     $scope.goToPrevPage = goToPrevPage;
     $scope.selectFileToDelete = selectFileToDelete;
     $scope.deleteFile = deleteFile;
+    $scope.showFullScreenModal = showFullScreenModal;
+
+    $scope.remoteServer = remoteServer;
     $scope.token = authService.getToken();
 
     $scope.$on('filesPosted', $scope.loadFilesList);
@@ -98,13 +99,7 @@ function filesListController ($scope, $location, authService, filesHandlerServic
         alertsService.insertDangerAlert('Ups... There was some error while deleting your file.');
     };
 
-    /*$scope.download = function (file) {
-        filesHandlerService.downloadFile(file)
-        .success(function (downloadedFile) {
-            console.log('Successfully loaded data:\n' + downloadedFile);
-        })
-        .error(function (error) {
-            alertsService.insertDangerAlert('Ups... There was some error while downloading your file.');
-        });
-    }*/
+    function showFullScreenModal (file) {
+        $('#fullScreenModal').modal('show');
+    };
 };
