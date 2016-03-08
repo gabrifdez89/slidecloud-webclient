@@ -21,7 +21,6 @@
     "angular": "~1.4.7",
     "bootstrap": "~3.3.5",
     "jquery": "~2.1.4",
-    "angular-route": "~1.4.8",
-    "pdfjs-bower": "~1.0.233"
+    "angular-route": "~1.4.8"
   }
 }

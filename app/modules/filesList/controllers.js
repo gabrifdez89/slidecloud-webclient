@@ -7,10 +7,11 @@ module.controller('filesListController', [
     'filesHandlerService',
     'alertsService',
     'filesPaginationService',
+    'PDFViewerService',
     filesListController
 ]);
 
-function filesListController ($scope, $location, authService, filesHandlerService, alertsService, filesPaginationService) {
+function filesListController ($scope, $location, authService, filesHandlerService, alertsService, filesPaginationService, pdf) {
 
     $scope.loadFilesList = loadFilesList;
     $scope.goToPage = goToPage;
@@ -99,7 +100,32 @@ function filesListController ($scope, $location, authService, filesHandlerServic
         alertsService.insertDangerAlert('Ups... There was some error while deleting your file.');
     };
 
-    function showFullScreenModal (file) {
+    function showFullScreenModal () {
         $('#fullScreenModal').modal('show');
+    };
+
+    $scope.fileUrl = remoteServer + 'users/pepe/files/10?token=' + $scope.token;
+
+    $scope.instance = pdf.Instance("viewer");
+
+    $scope.nextPage = function() {
+        $scope.instance.nextPage();
+    };
+
+    $scope.prevPage = function() {
+        $scope.instance.prevPage();
+    };
+
+    $scope.gotoPage = function(page) {
+        $scope.instance.gotoPage(page);
+    };
+
+    $scope.pageLoaded = function(curPage, totalPages) {
+        $scope.currentPage = curPage;
+        $scope.totalPages = totalPages;
+    };
+
+    $scope.loadProgress = function(loaded, total, state) {
+        console.log('loaded =', loaded, 'total =', total, 'state =', state);
     };
 };

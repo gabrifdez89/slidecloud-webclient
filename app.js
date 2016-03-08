@@ -5,8 +5,8 @@ var app = angular.module('app', [
 	]),
 	remoteServer = 'http://localhost:3000/';
 
-app.config(['$routeProvider',
-	function ($routeProvider) {
+app.config(['$routeProvider', '$sceDelegateProvider',
+	function ($routeProvider, $sceDelegateProvider) {
 		$routeProvider.
 			when('/login', {
 				templateUrl: 'app/modules/login/login.html'
@@ -17,4 +17,12 @@ app.config(['$routeProvider',
 			otherwise({
 				redirectTo: '/login'
 			});
+
+		$sceDelegateProvider.
+			resourceUrlWhitelist([
+    			// Allow same origin resource loads.
+    			'self',
+    			// Allow loading from our assets domain.  Notice the difference between * and **.
+    			'http://localhost:3000/**'
+  		]);
 }]);
