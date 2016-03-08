@@ -100,7 +100,8 @@ function filesListController ($scope, $location, authService, filesHandlerServic
         alertsService.insertDangerAlert('Ups... There was some error while deleting your file.');
     };
 
-    function showFullScreenModal () {
+    function showFullScreenModal (file) {
+        $scope.fileUrl = remoteServer + file.url + '?token=' + $scope.token;
         $('#fullScreenModal').modal('show');
     };
 
