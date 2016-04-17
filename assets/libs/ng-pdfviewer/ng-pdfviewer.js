@@ -1,1 +1,0 @@
-../ng-pdfviewer.js

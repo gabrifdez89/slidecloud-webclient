@@ -29,6 +29,8 @@ function filesListController (
     $scope.selectFileToDelete = selectFileToDelete;
     $scope.deleteFile = deleteFile;
     $scope.showFullScreenModal = showFullScreenModal;
+    $scope.nextPage = nextPage;
+    $scope.prevPage = prevPage;
 
     $scope.remoteServer = remoteServer;
     $scope.token = authService.getToken();
@@ -116,6 +118,14 @@ function filesListController (
         } else {
             alertsService.insertWarningAlert('Sorry, only pdf files visualization is allowed by now.');
         }
+    };
+
+    function nextPage () {
+        pdf.nextPage();
+    };
+
+    function prevPage () {
+        pdf.prevPage();
     };
 
     $scope.fileUrl = remoteServer + 'users/pepe/files/10?token=' + $scope.token;
