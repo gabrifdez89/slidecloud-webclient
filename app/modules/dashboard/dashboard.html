@@ -97,7 +97,7 @@
           <div class="modal-dialog">
             <div class="modal-content">
               <button type="button" class="closeFullScreenModal" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-              <div>
+              <div class="pdfViewerContainer">
                 <pdfviewer src="{{fileUrl}}" on-page-load='pageLoaded(page,total)' id="viewer" load-progress='loadProgress(loaded, total, state)'></pdfviewer>
               </div>
             </div>
