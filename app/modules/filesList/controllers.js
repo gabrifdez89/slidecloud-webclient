@@ -7,11 +7,20 @@ module.controller('filesListController', [
     'filesHandlerService',
     'alertsService',
     'filesPaginationService',
+    'fileExtensionCheckerService',
     'PDFViewerService',
     filesListController
 ]);
 
-function filesListController ($scope, $location, authService, filesHandlerService, alertsService, filesPaginationService, pdf) {
+function filesListController (
+    $scope,
+    $location,
+    authService,
+    filesHandlerService,
+    alertsService,
+    filesPaginationService,
+    fileExtensionCheckerService,
+    pdf) {
 
     $scope.loadFilesList = loadFilesList;
     $scope.goToPage = goToPage;
@@ -101,8 +110,12 @@ function filesListController ($scope, $location, authService, filesHandlerServic
     };
 
     function showFullScreenModal (file) {
-        $scope.fileUrl = remoteServer + file.url + '?token=' + $scope.token;
-        $('#fullScreenModal').modal('show');
+        if(fileExtensionCheckerService.isPdfFile(file.name)) {
+            $scope.fileUrl = remoteServer + file.url + '?token=' + $scope.token;
+            $('#fullScreenModal').modal('show');
+        } else {
+            alertsService.insertWarningAlert('Sorry, only pdf files visualization is allowed by now.');
+        }
     };
 
     $scope.fileUrl = remoteServer + 'users/pepe/files/10?token=' + $scope.token;
