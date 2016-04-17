@@ -8,6 +8,7 @@ module.controller('filesListController', [
     'alertsService',
     'filesPaginationService',
     'fileExtensionCheckerService',
+    'presentationService',
     'PDFViewerService',
     filesListController
 ]);
@@ -20,6 +21,7 @@ function filesListController (
     alertsService,
     filesPaginationService,
     fileExtensionCheckerService,
+    presentationService,
     pdf) {
 
     $scope.loadFilesList = loadFilesList;
@@ -28,6 +30,7 @@ function filesListController (
     $scope.goToPrevPage = goToPrevPage;
     $scope.selectFileToDelete = selectFileToDelete;
     $scope.deleteFile = deleteFile;
+    $scope.startPresentation = startPresentation;
     $scope.showFullScreenModal = showFullScreenModal;
     $scope.nextPage = nextPage;
     $scope.prevPage = prevPage;
@@ -109,6 +112,21 @@ function filesListController (
 
     function onDeleteFileFailed (d) {
         alertsService.insertDangerAlert('Ups... There was some error while deleting your file.');
+    };
+
+    function startPresentation (file) {
+        //Call api to start presentation
+        presentationService.startPresentation(file).success(onStartPresentationSucceeded).error(onStartPresentationFailed);
+        showFullScreenModal(file);
+    };
+
+    function onStartPresentationSucceeded () {
+        //This should show the link or save it to show when asked
+        console.log('Link: ' + response.link);
+    };
+
+    function onStartPresentationFailed () {
+        alertsService.insertDangerAlert('Ups... There was some error while creating the presentation.');
     };
 
     function showFullScreenModal (file) {
