@@ -120,9 +120,11 @@ function filesListController (
         showFullScreenModal(file);
     };
 
-    function onStartPresentationSucceeded () {
-        //This should show the link or save it to show when asked
-        console.log('Link: ' + response.link);
+    function onStartPresentationSucceeded (response) {
+        //I should save the link to use it when needed
+        //I should show it in another way different than alerts
+        console.log('Link: ' + response);
+        alertsService.insertWarningAlert('Share this link to view your presentation. ' + response);
     };
 
     function onStartPresentationFailed () {
