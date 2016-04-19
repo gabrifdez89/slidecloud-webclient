@@ -34,6 +34,7 @@ function filesListController (
     $scope.showFullScreenModal = showFullScreenModal;
     $scope.nextPage = nextPage;
     $scope.prevPage = prevPage;
+    $scope.showLink = showLink;
 
     $scope.remoteServer = remoteServer;
     $scope.token = authService.getToken();
@@ -87,6 +88,11 @@ function filesListController (
         }
     };
 
+    function showLink () {
+        $scope.link = presentationService.getPresentationLink();
+        $('#showLinkModal').modal('show');
+    };
+
     function selectFileToDelete (file) {
         $scope.fileSelectedToDelete = file;
         $('#fileDeletionModal').modal('show');
@@ -115,16 +121,13 @@ function filesListController (
     };
 
     function startPresentation (file) {
-        //Call api to start presentation
-        presentationService.startPresentation(file).success(onStartPresentationSucceeded).error(onStartPresentationFailed);
-        showFullScreenModal(file);
+        var fileArgument = {file: file};
+        presentationService.startPresentation(file).success(onStartPresentationSucceeded.bind(fileArgument)).error(onStartPresentationFailed);
     };
 
     function onStartPresentationSucceeded (response) {
-        //I should save the link to use it when needed
-        //I should show it in another way different than alerts
-        console.log('Link: ' + response);
-        alertsService.insertWarningAlert('Share this link to view your presentation. ' + response);
+        presentationService.savePresentationLink(response);
+        showFullScreenModal(this.file);
     };
 
     function onStartPresentationFailed () {

@@ -1,11 +1,13 @@
 var module = angular.module('app.modules.presentation.services', []);
 
-module.factory('presentationService', ['$http', 'authService', presentationService]);
+module.factory('presentationService', ['$http', '$window', 'authService', presentationService]);
 
-function presentationService ($http, authService) {
+function presentationService ($http, $window, authService) {
 
 	return {
-		startPresentation: startPresentation
+		startPresentation: startPresentation,
+		savePresentationLink: savePresentationLink,
+		getPresentationLink: getPresentationLink
 	};
 
 	function startPresentation (file) {
@@ -14,5 +16,13 @@ function presentationService ($http, authService) {
 				'token': authService.getToken()
 			}
 		});
+	};
+
+	function savePresentationLink (link) {
+		$window.localStorage['link'] = link;
+	};
+
+	function getPresentationLink () {
+		return $window.localStorage['link'];
 	};
 };

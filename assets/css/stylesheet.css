@@ -48,3 +48,7 @@ canvas {
 	width: 75%;
 	max-width: 463px;
 }
+
+.bringFront {
+	z-index: 9999;
+}
