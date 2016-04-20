@@ -7,7 +7,8 @@ function presentationService ($http, $window, authService) {
 	return {
 		startPresentation: startPresentation,
 		savePresentationLink: savePresentationLink,
-		getPresentationLink: getPresentationLink
+		getPresentationLink: getPresentationLink,
+		deletePresentation: deletePresentation
 	};
 
 	function startPresentation (file) {
@@ -24,5 +25,13 @@ function presentationService ($http, $window, authService) {
 
 	function getPresentationLink () {
 		return $window.localStorage['link'];
+	};
+
+	function deletePresentation (fileUrl) {
+		return $http.delete(remoteServer + fileUrl + '/presentation', {
+			headers: {
+				'token': authService.getToken()
+			}
+		});
 	};
 };

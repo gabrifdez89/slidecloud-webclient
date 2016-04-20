@@ -31,6 +31,7 @@ function filesListController (
     $scope.selectFileToDelete = selectFileToDelete;
     $scope.deleteFile = deleteFile;
     $scope.startPresentation = startPresentation;
+    $scope.deletePresentation = deletePresentation;
     $scope.showFullScreenModal = showFullScreenModal;
     $scope.nextPage = nextPage;
     $scope.prevPage = prevPage;
@@ -122,7 +123,9 @@ function filesListController (
 
     function startPresentation (file) {
         var fileArgument = {file: file};
-        presentationService.startPresentation(file).success(onStartPresentationSucceeded.bind(fileArgument)).error(onStartPresentationFailed);
+        presentationService.startPresentation(file)
+        .success(onStartPresentationSucceeded.bind(fileArgument))
+        .error(onStartPresentationFailed);
     };
 
     function onStartPresentationSucceeded (response) {
@@ -136,11 +139,26 @@ function filesListController (
 
     function showFullScreenModal (file) {
         if(fileExtensionCheckerService.isPdfFile(file.name)) {
+            $scope.visualizedFile = file;
             $scope.fileUrl = remoteServer + file.url + '?token=' + $scope.token;
             $('#fullScreenModal').modal('show');
         } else {
             alertsService.insertWarningAlert('Sorry, only pdf files visualization is allowed by now.');
         }
+    };
+
+    function deletePresentation () {
+        presentationService.deletePresentation($scope.visualizedFile.url)
+        .success(onDeletePresentationSucceeded)
+        .error(onDeletePresentationFailed);
+    };
+
+    function onDeletePresentationSucceeded (response) {
+        alertsService.insertWarningAlert('Presentation finished successfully');
+    };
+
+    function onDeletePresentationFailed () {
+        alertsService.insertDangerAlert('Ups... There was some error finishing presentation...');
     };
 
     function nextPage () {
