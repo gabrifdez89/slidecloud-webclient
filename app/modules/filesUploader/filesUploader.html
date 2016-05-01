@@ -1,0 +1,5 @@
+<form ng-controller="filesUploaderController">
+  <input type="file" file-input="files" onchange="angular.element(this).scope().filesChanged(this)" multiple class="filestyle"/>
+  <button ng-click="upload()" class="btn btn-default pull-right submitButton">Upload</button>
+  <li ng-repeat="file in files">{{file.name}}</li>
+</form>

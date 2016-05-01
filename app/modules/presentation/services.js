@@ -1,14 +1,21 @@
 var module = angular.module('app.modules.presentation.services', []);
 
-module.factory('presentationService', ['$http', '$window', 'authService', presentationService]);
+module.factory('presentationService', ['$http', '$window', 'authService', '$rootScope', 'fileExtensionCheckerService', presentationService]);
 
-function presentationService ($http, $window, authService) {
+function presentationService ($http, $window, authService, $rootScope, fileExtensionCheckerService) {
+
+	var visualizedFile,
+		fileUrl,
+		me = this;
 
 	return {
 		startPresentation: startPresentation,
 		savePresentationLink: savePresentationLink,
 		getPresentationLink: getPresentationLink,
-		deletePresentation: deletePresentation
+		deletePresentation: deletePresentation,
+		visualizePresentation: visualizePresentation,
+		getVisualizedFile: getVisualizedFile,
+		getFileUrl: getFileUrl
 	};
 
 	function startPresentation (file) {
@@ -33,5 +40,23 @@ function presentationService ($http, $window, authService) {
 				'token': authService.getToken()
 			}
 		});
+	};
+
+	function visualizePresentation (file, fileUrl, presentationLink) {
+		if(fileExtensionCheckerService.isPdfFile(file.name)) {
+			visualizedFile = file;
+			me.fileUrl = fileUrl;
+			$rootScope.$broadcast('presentationStarted');
+		} else {
+			alertsService.insertWarningAlert('Sorry, only pdf files visualization is allowed by now.');
+		}
+	};
+
+	function getVisualizedFile () {
+		return visualizedFile;
+	};
+
+	function getFileUrl () {
+		return me.fileUrl;
 	};
 };

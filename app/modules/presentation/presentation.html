@@ -1,0 +1,41 @@
+<div ng-controller="presentationController">
+  
+  <!-- Full screen modal panel -->
+  <div class="modal modal-fullscreen fade" id="fullScreenModal" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="fullScreenModalButtonsContainer">
+          <button type="button" class="closeFullScreenModal" ng-click="deletePresentation()" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+          <button type="button" class="fullScreenModalButton" ng-click="nextPage()"><span class="glyphicon glyphicon-chevron-right"></span></button>
+          <button type="button" class="fullScreenModalButton" ng-click="prevPage()"><span class="glyphicon glyphicon-chevron-left"></span></button>
+          <button type="button" class="fullScreenModalButton" ng-click="showLink()"><span class="glyphicon glyphicon-link"></span></button>
+        </div>
+        <div class="pdfViewerContainer">
+          <pdfviewer src="{{fileUrl}}" on-page-load='pageLoaded(page,total)' id="viewer" load-progress='loadProgress(loaded, total, state)'></pdfviewer>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Full screen modal panel -->
+
+  <!-- Show link modal panel -->
+  <div class="bringFront modal fade" id="showLinkModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Presentation link</h4>
+        </div>
+        <div class="modal-body">
+          <p>Share this link to allow viewers follow your presentation:</p>
+          <p><strong>{{link}}</strong></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Show link modal panel -->
+  
+</div>
