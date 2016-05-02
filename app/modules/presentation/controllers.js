@@ -9,13 +9,16 @@ module.controller('presentationController', [
     presentationController]);
 
 function presentationController ($scope, presentationService, alertsService, socketIOService, pdf) {
-    
+
     $scope.$on('presentationStarted', function () {
+        var namespace;
         $scope.visualizedFile = presentationService.getVisualizedFile();
         $scope.fileUrl = presentationService.getFileUrl();
         $scope.instance = pdf.Instance("viewer");
+        $scope.instance.gotoPage(1);
         $('#fullScreenModal').modal('show');
-        socketIOService.connect();
+        namespace = $scope.visualizedFile.url;
+        socketIOService.createNamespace(namespace);
     });
 
     $scope.nextPage = nextPage;
@@ -24,11 +27,13 @@ function presentationController ($scope, presentationService, alertsService, soc
     $scope.deletePresentation = deletePresentation;
 
     function nextPage () {
-        pdf.nextPage();
+        $scope.instance.nextPage();
+        socketIOService.goToPage(presentationService.getPageNum());
     };
 
     function prevPage () {
-        pdf.prevPage();
+        $scope.instance.prevPage();
+        socketIOService.goToPage(presentationService.getPageNum());
     };
 
     function showLink () {
@@ -36,22 +41,14 @@ function presentationController ($scope, presentationService, alertsService, soc
         $('#showLinkModal').modal('show');
     };
 
-    $scope.nextPage = function() {
-        $scope.instance.nextPage();
-    };
-
-    $scope.prevPage = function() {
-        $scope.instance.prevPage();
-    };
-
-    $scope.gotoPage = function(page) {
+    /*$scope.gotoPage = function(page) {
         $scope.instance.gotoPage(page);
-    };
+    };*/
 
-    $scope.pageLoaded = function(curPage, totalPages) {
+    /*$scope.pageLoaded = function(curPage, totalPages) {
         $scope.currentPage = curPage;
         $scope.totalPages = totalPages;
-    };
+    };*/
 
     $scope.loadProgress = function(loaded, total, state) {
         console.log('loaded =', loaded, 'total =', total, 'state =', state);

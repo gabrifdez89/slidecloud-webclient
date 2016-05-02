@@ -3,11 +3,12 @@ var module = angular.module('app.modules.presentationViewer.controllers', []);
 module.controller('presentationViewerController', [
     '$scope',
     '$location',
+    'socketIOService',
     'PDFViewerService',
     presentationViewerController
 ]);
 
-function presentationViewerController ($scope, $location, pdf) {
+function presentationViewerController ($scope, $location, socketIOService, pdf) {
 
     $scope.showFullScreenModal = showFullScreenModal;
 
@@ -17,13 +18,20 @@ function presentationViewerController ($scope, $location, pdf) {
 
     function showFullScreenModal () {
         var username = $location.search().username,
-            fileId = $location.search().fileId;
+            fileId = $location.search().fileId,
+            filePartialUrl = 'users/' + username + '/files/' + fileId;
 
-        $scope.fileUrl = remoteServer + 'users/' + username + '/files/' + fileId;
+        $scope.fileUrl = remoteServer + filePartialUrl;
+        socketIOService.connectToNamespace(filePartialUrl);
+        socketIOService.onGoToPage(goToPage);
         $('#fullScreenModal').modal('show');
     };
 
     $scope.instance = pdf.Instance("viewer");
+
+    function goToPage (pageNum) {
+        $scope.instance.gotoPage(pageNum);
+    };
 
     /*$scope.nextPage = function() {
         $scope.instance.nextPage();

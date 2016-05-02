@@ -6,7 +6,8 @@ function presentationService ($http, $window, authService, $rootScope, fileExten
 
 	var visualizedFile,
 		fileUrl,
-		me = this;
+		me = this
+		pageNum = 1;
 
 	return {
 		startPresentation: startPresentation,
@@ -15,7 +16,9 @@ function presentationService ($http, $window, authService, $rootScope, fileExten
 		deletePresentation: deletePresentation,
 		visualizePresentation: visualizePresentation,
 		getVisualizedFile: getVisualizedFile,
-		getFileUrl: getFileUrl
+		getFileUrl: getFileUrl,
+		setPageNum: setPageNum,
+		getPageNum: getPageNum
 	};
 
 	function startPresentation (file) {
@@ -44,6 +47,7 @@ function presentationService ($http, $window, authService, $rootScope, fileExten
 
 	function visualizePresentation (file, fileUrl, presentationLink) {
 		if(fileExtensionCheckerService.isPdfFile(file.name)) {
+			savePresentationLink(presentationLink);
 			visualizedFile = file;
 			me.fileUrl = fileUrl;
 			$rootScope.$broadcast('presentationStarted');
@@ -58,5 +62,13 @@ function presentationService ($http, $window, authService, $rootScope, fileExten
 
 	function getFileUrl () {
 		return me.fileUrl;
+	};
+
+	function setPageNum (pn) {
+		pageNum = pn;
+	};
+
+	function getPageNum () {
+		return pageNum;
 	};
 };

@@ -7,10 +7,27 @@ function socketIOService () {
 	var socket;
 
 	return {
-		connect: connect
+		createNamespace: createNamespace,
+		connectToNamespace: connectToNamespace,
+		goToPage: goToPage,
+		onGoToPage: onGoToPage
 	};
 
-	function connect () {
+	function createNamespace (namespace) {
 		socket = io(remoteServer);
+		socket.emit('createNamespace', namespace);
+		connectToNamespace(namespace);
+	};
+
+	function connectToNamespace (namespace) {
+		socket = io(remoteServer + namespace);
+	};
+
+	function goToPage (pageNum) {
+		socket.emit('goToPage', pageNum);
+	};
+
+	function onGoToPage (callback) {
+		socket.on('goToPage', callback);
 	};
 };
