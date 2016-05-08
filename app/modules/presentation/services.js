@@ -6,7 +6,7 @@ function presentationService ($http, $window, authService, $rootScope, fileExten
 
 	var visualizedFile,
 		fileUrl,
-		me = this
+		me = this,
 		pageNum = 1;
 
 	return {

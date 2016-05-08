@@ -11,14 +11,17 @@ module.controller('presentationController', [
 function presentationController ($scope, presentationService, alertsService, socketIOService, pdf) {
 
     $scope.$on('presentationStarted', function () {
+        if($scope.instance) {//Force rendering of first page if the pdf has been rendered before
+            $scope.instance.gotoPage(1);
+        }
         var namespace;
         $scope.visualizedFile = presentationService.getVisualizedFile();
         $scope.fileUrl = presentationService.getFileUrl();
         $scope.instance = pdf.Instance("viewer");
-        $scope.instance.gotoPage(1);
         $('#fullScreenModal').modal('show');
         namespace = $scope.visualizedFile.url;
         socketIOService.createNamespace(namespace);
+        socketIOService.connectToNamespace(namespace);
     });
 
     $scope.nextPage = nextPage;

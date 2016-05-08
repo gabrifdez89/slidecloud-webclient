@@ -16,7 +16,6 @@ function socketIOService () {
 	function createNamespace (namespace) {
 		socket = io(remoteServer);
 		socket.emit('createNamespace', namespace);
-		connectToNamespace(namespace);
 	};
 
 	function connectToNamespace (namespace) {
