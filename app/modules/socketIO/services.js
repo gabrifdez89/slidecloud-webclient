@@ -10,7 +10,8 @@ function socketIOService () {
 		createNamespace: createNamespace,
 		connectToNamespace: connectToNamespace,
 		goToPage: goToPage,
-		onGoToPage: onGoToPage
+		onGoToPage: onGoToPage,
+		onNamespaceCreated: onNamespaceCreated
 	};
 
 	function createNamespace (namespace) {
@@ -29,4 +30,8 @@ function socketIOService () {
 	function onGoToPage (callback) {
 		socket.on('goToPage', callback);
 	};
+
+	function onNamespaceCreated (callback) {
+		socket.on('namespaceCreated', callback);
+	}
 };

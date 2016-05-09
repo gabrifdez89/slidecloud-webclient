@@ -21,7 +21,7 @@ function presentationController ($scope, presentationService, alertsService, soc
         $('#fullScreenModal').modal('show');
         namespace = $scope.visualizedFile.url;
         socketIOService.createNamespace(namespace);
-        socketIOService.connectToNamespace(namespace);
+        socketIOService.onNamespaceCreated(socketIOService.connectToNamespace);
     });
 
     $scope.nextPage = nextPage;
