@@ -11,7 +11,8 @@ function socketIOService () {
 		connectToNamespace: connectToNamespace,
 		goToPage: goToPage,
 		onGoToPage: onGoToPage,
-		onNamespaceCreated: onNamespaceCreated
+		onNamespaceCreated: onNamespaceCreated,
+		askCurrentPage: askCurrentPage
 	};
 
 	function createNamespace (namespace) {
@@ -33,5 +34,11 @@ function socketIOService () {
 
 	function onNamespaceCreated (callback) {
 		socket.on('namespaceCreated', callback);
-	}
+	};
+
+	function askCurrentPage () {
+		setTimeout(function () {
+			socket.emit('whatIsCurrentPage');
+		}, 2000); //Poor approach. We need to be sure the page is rendered before asking for current page
+	};
 };

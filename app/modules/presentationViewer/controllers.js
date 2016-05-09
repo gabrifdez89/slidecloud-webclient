@@ -17,14 +17,15 @@ function presentationViewerController ($scope, $location, socketIOService, pdf) 
     $scope.showFullScreenModal();
 
     function showFullScreenModal () {
+        $('#fullScreenModal').modal('show');
         var username = $location.search().username,
             fileId = $location.search().fileId,
             filePartialUrl = 'users/' + username + '/files/' + fileId;
 
         $scope.fileUrl = remoteServer + filePartialUrl;
         socketIOService.connectToNamespace(filePartialUrl);
+        socketIOService.askCurrentPage();
         socketIOService.onGoToPage(goToPage);
-        $('#fullScreenModal').modal('show');
     };
 
     $scope.instance = pdf.Instance("viewer");
