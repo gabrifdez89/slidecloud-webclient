@@ -25,8 +25,15 @@ a {
 
 .delete-button {
 	font-size: 20px;
+	color: black;
 }
 
 .download-link {
 	color: black;
+}
+
+.presentation-button {
+	font-size: 20px;
+	color: black;
+	margin-right: 17px;
 }
