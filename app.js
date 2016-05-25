@@ -1,6 +1,7 @@
 var app = angular.module('app', [
 		'app.modules.dashboard',
 		'app.modules.login',
+		'app.modules.presentationViewer',
 		'ngRoute'
 	]),
 	remoteServer = 'http://slidecloudapi.herokuapp.com/';
@@ -13,6 +14,9 @@ app.config(['$routeProvider', '$sceDelegateProvider',
 			}).
 			when('/dashboard', {
 				templateUrl: 'app/modules/dashboard/dashboard.html'
+			}).
+			when('/presentation', {
+				templateUrl: 'app/modules/presentationViewer/presentationViewer.html'
 			}).
 			otherwise({
 				redirectTo: '/login'

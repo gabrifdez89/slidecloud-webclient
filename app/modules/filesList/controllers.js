@@ -7,19 +7,23 @@ module.controller('filesListController', [
     'filesHandlerService',
     'alertsService',
     'filesPaginationService',
-    'PDFViewerService',
+    'presentationService',
     filesListController
 ]);
 
-function filesListController ($scope, $location, authService, filesHandlerService, alertsService, filesPaginationService, pdf) {
+function filesListController (
+    $scope,
+    $location,
+    authService,
+    filesHandlerService,
+    alertsService,
+    filesPaginationService,
+    presentationService) {
 
     $scope.loadFilesList = loadFilesList;
-    $scope.goToPage = goToPage;
-    $scope.goToNextPage = goToNextPage;
-    $scope.goToPrevPage = goToPrevPage;
     $scope.selectFileToDelete = selectFileToDelete;
     $scope.deleteFile = deleteFile;
-    $scope.showFullScreenModal = showFullScreenModal;
+    $scope.startPresentation = startPresentation;
 
     $scope.remoteServer = remoteServer;
     $scope.token = authService.getToken();
@@ -100,33 +104,22 @@ function filesListController ($scope, $location, authService, filesHandlerServic
         alertsService.insertDangerAlert('Ups... There was some error while deleting your file.');
     };
 
-    function showFullScreenModal (file) {
-        $scope.fileUrl = remoteServer + file.url + '?token=' + $scope.token;
-        $('#fullScreenModal').modal('show');
+    function startPresentation (file) {
+        var fileArgument = {file: file};
+        presentationService.startPresentation(file)
+        .success(onStartPresentationSucceeded.bind(fileArgument))
+        .error(onStartPresentationFailed);
     };
 
-    $scope.fileUrl = remoteServer + 'users/pepe/files/10?token=' + $scope.token;
+    function onStartPresentationSucceeded (response) {
+        var file = this.file,
+            fileUrl = remoteServer + file.url + '?token=' + $scope.token,
+            presentationLink = response;
 
-    $scope.instance = pdf.Instance("viewer");
-
-    $scope.nextPage = function() {
-        $scope.instance.nextPage();
+        presentationService.visualizePresentation(file, fileUrl, presentationLink);
     };
 
-    $scope.prevPage = function() {
-        $scope.instance.prevPage();
-    };
-
-    $scope.gotoPage = function(page) {
-        $scope.instance.gotoPage(page);
-    };
-
-    $scope.pageLoaded = function(curPage, totalPages) {
-        $scope.currentPage = curPage;
-        $scope.totalPages = totalPages;
-    };
-
-    $scope.loadProgress = function(loaded, total, state) {
-        console.log('loaded =', loaded, 'total =', total, 'state =', state);
+    function onStartPresentationFailed () {
+        alertsService.insertDangerAlert('Ups... There was some error while creating the presentation.');
     };
 };

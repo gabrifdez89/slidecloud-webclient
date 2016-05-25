@@ -1,131 +1,49 @@
 <div>
 
-
-      <!-- Navbar -->
-      <nav class="navbar navbar-default navbar-fixed-top">
-        <div class="container-fluid">
-          <div class="navbar-header">
-            <a class="navbar-brand" href="#">
-              <img alt="Brand" src="../../../assets/img/logo32.png">
-            </a>
-          </div>
-
-          <!-- Log out -->
-          <div ng-controller="loginController" class="collapse navbar-collapse navbar-right">
-            <button ng-click="logout()" type="button" class="btn btn-default navbar-btn">Log out</button>
-            <p class="navbar-text"><a href="#" class="navbar-link">{{username}}</a></p>
-          </div>
-
-        </div>
-      </nav>
-
-
-      <!-- Files panel -->
-      <div ng-controller="filesListController">
-        
-        <!-- Files list -->
-        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-          <div class="panel panel-primary">
-            <div class="panel-heading">
-              <span>My files</span>
-            </div>
-            
-            <table class="table">
-              <thead>
-                <tr>
-                  <th>File name</th>
-                </tr>
-              </thead>
-
-              <tbody>
-                  <tr ng-repeat="file in currentPage">
-                    <td>
-                      {{file.name}}
-                      <span ng-click="selectFileToDelete(file)" data-toggle="modal" data-whatever=file class="pull-right glyphicon glyphicon-remove delete-button" aria-hidden="true"></span>
-                      <a href="{{remoteServer}}{{file.url}}?token={{token}}" target="_blank" class="download-link"><span class="pull-right glyphicon glyphicon-download download-button" aria-hidden="true"></span></a>
-                      <span ng-click="showFullScreenModal(file)" class="pull-right glyphicon glyphicon-blackboard presentation-button" aria-hidden="true"></span>
-                    </td>
-                  </tr>
-              </tbody>
-            </table>
-
-            <div class="panel-footer">
-              <nav>
-                <ul class="pagination">
-                  <li>
-                    <a ng-click="goToPrevPage()" aria-label="Previous">
-                      <span aria-hidden="true">&laquo;</span>
-                    </a>
-                  </li>
-                  <li ng-repeat="page in pages" class="{{$index === currentPageNumber ? 'active' : ''}}">
-                    <a ng-click="goToPage($index)">{{$index + 1}}</a>
-                  </li>
-                  <li>
-                    <a ng-click="goToNextPage()" aria-label="Next">
-                      <span aria-hidden="true">&raquo;</span>
-                    </a>
-                  </li>
-                </ul>
-              </nav>
-            </div>
-          </div>
-        </div>
-        <!-- Files list -->
-
-        <!-- Modal panel -->
-        <div class="modal fade" id="fileDeletionModal">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Warning</h4>
-              </div>
-              <div class="modal-body">
-                <p>Are you sure you want to delete this file?</p>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary" ng-click="deleteFile()">Delete</button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- Modal panel -->
-
-        <!-- Full screen modal panel -->
-        <div class="modal modal-fullscreen fade" id="fullScreenModal" data-backdrop="static" data-keyboard="false">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <button type="button" class="closeFullScreenModal" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-              <div>
-                <pdfviewer src="{{fileUrl}}" on-page-load='pageLoaded(page,total)' id="viewer" load-progress='loadProgress(loaded, total, state)'></pdfviewer>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- Full screen modal panel -->
-
-      <!-- Files panel -->
+  <!-- Navbar -->
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">
+          <img alt="Brand" src="../../../assets/img/logo32.png">
+        </a>
       </div>
 
-      <!-- Options panel -->
-      <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 pull-right">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <span>Options</span>
-          </div>
-          <div class="panel-body">
-
-            <form ng-controller="filesUploaderController">
-              <input type="file" file-input="files" onchange="angular.element(this).scope().filesChanged(this)" multiple class="filestyle"/>
-              <button ng-click="upload()" class="btn btn-default pull-right submitButton">Upload</button>
-              <li ng-repeat="file in files">{{file.name}}</li>
-            </form>
-          </div>
-        </div>
-      </div>
-
-      <!-- Alerts area -->
-      <div id="alertsArea" class="col-lg-12 col-md-12 col-sm-12 col-xs-12"></div>
+      <!-- Log out -->
+      <div ng-include="'app/modules/login/logout.html'"></div>
+      <!-- Log out -->
 
     </div>
+  </nav>
+  <!-- Navbar -->
+
+  <!-- Files list -->
+  <div ng-include="'app/modules/filesList/filesList.html'"></div>
+  <!-- Files list -->
+
+  <!-- Options panel -->
+  <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 pull-right">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <span>Options</span>
+      </div>
+      <div class="panel-body">
+
+        <!-- Files uploader -->
+        <div ng-include="'app/modules/filesUploader/filesUploader.html'"></div>
+        <!-- Files uploader -->
+
+      </div>
+    </div>
+  </div>
+  <!-- Options panel -->
+
+  <!-- Alerts -->
+  <div ng-include="'app/modules/alerts/alerts.html'"></div>
+  <!-- Alerts -->
+
+  <!-- Presentation -->
+  <div ng-include="'app/modules/presentation/presentation.html'"></div>
+  <!-- Presentation -->
+
+</div>

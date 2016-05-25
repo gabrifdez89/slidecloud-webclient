@@ -7,7 +7,7 @@
  */
 
 angular.module('ngPDFViewer', []).
-directive('pdfviewer', [ '$parse', function($parse) {
+directive('pdfviewer', [ '$parse', 'presentationService', function($parse, presentationService) {
 	var canvas = null;
 	var instance_id = null;
 
@@ -84,6 +84,7 @@ directive('pdfviewer', [ '$parse', function($parse) {
 				if ($scope.pageNum < $scope.pdfDoc.numPages) {
 					$scope.pageNum++;
 					$scope.renderPage($scope.pageNum);
+					presentationService.setPageNum($scope.pageNum);
 				}
 			});
 
@@ -95,6 +96,7 @@ directive('pdfviewer', [ '$parse', function($parse) {
 				if ($scope.pageNum > 1) {
 					$scope.pageNum--;
 					$scope.renderPage($scope.pageNum);
+					presentationService.setPageNum($scope.pageNum);
 				}
 			});
 
@@ -126,6 +128,7 @@ directive('pdfviewer', [ '$parse', function($parse) {
 service("PDFViewerService", [ '$rootScope', function($rootScope) {
 
 	var svc = { };
+
 	svc.nextPage = function() {
 		$rootScope.$broadcast('pdfviewer.nextPage');
 	};

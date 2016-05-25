@@ -14,15 +14,31 @@
   opacity: .97;
   filter: alpha(opacity=97);
 }
-.closeFullScreenModal {
+.fullScreenModalButtonsContainer{
   float: right;
-  font-size: 50px;
+}
+
+.closeFullScreenModal {
+  font-size: 40px;
   font-weight: 700;
   line-height: 1;
   color: #000;
   text-shadow: 0 1px 0 #fff;
   filter: alpha(opacity=20);
   opacity: .8;
+  display: block;
+}
+
+.fullScreenModalButton {
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1;
+  color: #000;
+  text-shadow: 0 1px 0 #fff;
+  filter: alpha(opacity=20);
+  opacity: .8;
+  height: 46px;
+  display: block;
 }
 
 /* .modal-fullscreen size: we use Bootstrap media query breakpoints */

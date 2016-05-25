@@ -1,0 +1,17 @@
+<div ng-controller="presentationViewerController">
+
+	<!-- Full screen modal panel -->
+    <div class="modal modal-fullscreen fade" id="fullScreenModal" data-backdrop="static" data-keyboard="false">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="fullScreenModalButtonsContainer">
+          </div>
+          <div class="pdfViewerContainer">
+            <pdfviewer src="{{fileUrl}}" on-page-load='pageLoaded(page,total)' id="viewer" load-progress='loadProgress(loaded, total, state)'></pdfviewer>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Full screen modal panel -->
+
+</div>
