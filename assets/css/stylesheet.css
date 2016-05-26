@@ -46,7 +46,7 @@ a {
 canvas {
 	min-width: 320px;
 	width: 75%;
-	max-width: 463px;
+	/*max-width: 463px; Excluded to better support slides*/
 }
 
 .bringFront {
